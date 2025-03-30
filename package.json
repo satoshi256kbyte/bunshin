@@ -1,7 +1,7 @@
 {
     "name": "bunshin-cli",
     "version": "1.0.0",
-    "description": "A simple TypeScript CLI",
+    "description": "Convert CI/CD tool build action definitions to other tool formats",
     "main": "dist/index.js",
     "bin": {
         "bunshin": "./dist/index.js"
