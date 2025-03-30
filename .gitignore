@@ -31,6 +31,3 @@ coverage/
 # 一時ファイル
 *.tmp
 *.temp
-
-# Git Hooks
-!.husky/ 
