@@ -1,0 +1,25 @@
+version: 0.2
+env:
+  variables:
+    NODE_ENV: production
+    API_KEY: secret
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre_build:
+    commands:
+      - npm ci
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - npm test
+
+artifacts:
+  files:
+    - dist/**/*
+    - package.json
+  base-directory: . 
