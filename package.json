@@ -16,12 +16,13 @@
         "format": "prettier --write \"src/**/*.ts\"",
         "format:check": "prettier --check \"src/**/*.ts\"",
         "test": "jest",
-        "prepare": "husky install",
+        "postinstall": "husky",
         "pre-commit": "lint-staged"
     },
     "files": [
         "dist",
-        "README.md"
+        "README.md",
+        ".husky"
     ],
     "keywords": [
         "cli",
