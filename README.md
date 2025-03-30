@@ -29,46 +29,7 @@ bunshin convert .github/workflows/ci.yml gitlab-ci
 
 ## 開発者向け
 
-### セットアップ
-
-```bash
-# 依存関係のインストール
-npm install
-
-# ビルド
-npm run build
-```
-
-### 開発コマンド
-
-```bash
-# ビルド
-npm run build
-
-# リント
-npm run lint
-npm run lint:fix
-
-# フォーマット
-npm run format
-npm run format:check
-
-# テスト
-npm test
-
-# ローカルでの実行
-npm run bunshin
-```
-
-### テスト
-
-```bash
-# テストの実行
-npm test
-
-# カバレッジレポートの生成
-npm test -- --coverage
-```
+開発者向けの詳細な情報は[CONTRIBUTING.md](./CONTRIBUTING.md)を参照してください。
 
 ## ライセンス
 
