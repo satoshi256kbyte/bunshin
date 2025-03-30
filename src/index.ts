@@ -6,4 +6,4 @@ console.log('Hello from Bunshin CLI!');
 const args = process.argv.slice(2);
 if (args.length > 0) {
   console.log('Arguments:', args);
-} 
+}
