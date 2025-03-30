@@ -59,8 +59,8 @@ npm test -- --coverage
 2. コミット前に必ずテストを実行してください
 3. プルリクエストを作成する前に、以下のコマンドを実行してください：
    ```bash
-   npm run lint
-   npm run format:check
+   npm run format
+   npm run lint:fix
    npm test
    ```
 
