@@ -1,4 +1,4 @@
-# Bunshin CLI
+# Kawarimi CLI
 
 CI/CDツールのビルドアクション定義を他のツール形式に変換するCLIツール
 
@@ -12,19 +12,19 @@ CI/CDツールのビルドアクション定義を他のツール形式に変換
 ## インストール
 
 ```bash
-npm install -g bunshin-cli
+npm install -g kawarimi-cli
 ```
 
 ## 使用方法
 
 ```bash
-bunshin convert <source-file> <target-format>
+kawarimi convert <source-file> <target-format>
 ```
 
 例：
 
 ```bash
-bunshin convert .github/workflows/ci.yml gitlab-ci
+kawarimi convert .github/workflows/ci.yml gitlab-ci
 ```
 
 ## 開発者向け

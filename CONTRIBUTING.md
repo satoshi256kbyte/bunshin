@@ -28,7 +28,7 @@ npm run format:check
 npm test
 
 # ローカルでの実行
-npm run bunshin
+npm run kawarimi
 
 # プリコミットフックのテスト
 npx husky run pre-commit

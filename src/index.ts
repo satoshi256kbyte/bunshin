@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-console.log('Hello from Bunshin CLI!');
+console.log('Hello from Kawarimi CLI!');
 
 // コマンドライン引数の処理
 const args = process.argv.slice(2);
