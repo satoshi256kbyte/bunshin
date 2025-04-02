@@ -47,49 +47,60 @@ interface GitHubActions {
   };
 }
 
-export function convertBuildspecToGitHubActions(buildspec: Buildspec): GitHubActions {
-  const steps = [];
-
-  // チェックアウトステップ
-  steps.push({
+// チェックアウトステップを生成する関数
+function createCheckoutStep() {
+  return {
     uses: 'actions/checkout@v4',
-  });
+  };
+}
 
-  // Node.jsのセットアップ
+// Node.jsのセットアップステップを生成する関数
+function createNodeSetupStep(buildspec: Buildspec) {
   if (buildspec.phases.install?.['runtime-versions']?.nodejs) {
-    steps.push({
+    return {
       uses: 'actions/setup-node@v4',
       with: {
         'node-version': String(buildspec.phases.install['runtime-versions'].nodejs),
       },
-    });
+    };
   }
+  return null;
+}
 
-  // 依存関係のインストール
+// 依存関係のインストールステップを生成する関数
+function createDependenciesStep(buildspec: Buildspec) {
   if (buildspec.phases.pre_build?.commands) {
-    steps.push({
+    return {
       name: 'Install dependencies',
       run: buildspec.phases.pre_build.commands.join('\n'),
-    });
+    };
   }
+  return null;
+}
 
-  // ビルド
-  steps.push({
+// ビルドステップを生成する関数
+function createBuildStep(buildspec: Buildspec) {
+  return {
     name: 'Build',
     run: buildspec.phases.build.commands.join('\n'),
-  });
+  };
+}
 
-  // テスト
+// テストステップを生成する関数
+function createTestStep(buildspec: Buildspec) {
   if (buildspec.phases.post_build?.commands) {
-    steps.push({
+    return {
       name: 'Test',
       run: buildspec.phases.post_build.commands.join('\n'),
-    });
+    };
   }
+  return null;
+}
 
-  // アーティファクトのアップロード
+// アーティファクトのアップロードステップを生成する関数
+function createArtifactStep(buildspec: Buildspec) {
   if (buildspec.artifacts) {
-    steps.push({
+    return {
       name: 'Upload artifacts',
       uses: 'actions/upload-artifact@v4',
       with: {
@@ -105,9 +116,13 @@ export function convertBuildspecToGitHubActions(buildspec: Buildspec): GitHubAct
             .join('')
             .trim() + '\n',
       },
-    });
+    };
   }
+  return null;
+}
 
+// GitHub Actionsのワークフロー設定を生成する関数
+function createWorkflowConfig(buildspec: Buildspec, steps: any[]) {
   return {
     name: 'CI',
     on: {
@@ -126,4 +141,28 @@ export function convertBuildspecToGitHubActions(buildspec: Buildspec): GitHubAct
       },
     },
   };
+}
+
+export function convertBuildspecToGitHubActions(buildspec: Buildspec): GitHubActions {
+  const steps = [];
+
+  // 各フェーズごとにステップを生成
+  steps.push(createCheckoutStep());
+
+  const nodeSetupStep = createNodeSetupStep(buildspec);
+  if (nodeSetupStep) steps.push(nodeSetupStep);
+
+  const dependenciesStep = createDependenciesStep(buildspec);
+  if (dependenciesStep) steps.push(dependenciesStep);
+
+  steps.push(createBuildStep(buildspec));
+
+  const testStep = createTestStep(buildspec);
+  if (testStep) steps.push(testStep);
+
+  const artifactStep = createArtifactStep(buildspec);
+  if (artifactStep) steps.push(artifactStep);
+
+  // ワークフロー設定を生成
+  return createWorkflowConfig(buildspec, steps);
 }
