@@ -1,25 +1,110 @@
+# https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/build-spec-ref.html
 version: 0.2
-env:
-  variables:
-    NODE_ENV: production
-    API_KEY: secret
 
+run-as: Linux-user-name
+
+env:
+  shell: shell-tag
+  variables:
+    key1: value
+    key2: value
+  parameter-store:
+    key1: value
+  exported-variables:
+    - variable
+    - variable
+  secrets-manager:
+    key: secret-id:json-key:version-stage:version-id
+  git-credential-helper: no
+
+proxy:
+  upload-artifacts: no
+  logs: no
+
+batch:
+  fast-fail: false
+  # build-list:
+  # build-matrix:
+  # build-graph:
+  # build-fanout:
+        
 phases:
   install:
+    run-as: Linux-user-name
+    on-failure: ABORT
     runtime-versions:
-      nodejs: 18
+      runtime1: version
+      runtime2: version
+    commands:
+      - command
+      - command
+    finally:
+      - command
+      - command
+    
   pre_build:
+    run-as: Linux-user-name
+    on-failure: ABORT
     commands:
-      - npm ci
+      - command
+      - command
+    finally:
+      - command
+      - command
+    
   build:
+    run-as: Linux-user-name
+    on-failure: ABORT
     commands:
-      - npm run build
+      - command
+      - command
+    finally:
+      - command
+      - command
+    
   post_build:
+    run-as: Linux-user-name
+    on-failure: ABORT
     commands:
-      - npm test
-
+      - command
+      - command
+    finally:
+      - command
+      - command
+    
+reports:
+  report-group-name-or-arn:
+    files:
+      - location
+      - location
+    base-directory: location
+    discard-paths: no
+    file-format: report-format
 artifacts:
   files:
-    - dist/**/*
-    - package.json
-  base-directory: . 
+    - location
+    - location
+  name: artifact-name
+  discard-paths: no
+  base-directory: location
+  exclude-paths: excluded paths
+  enable-symlinks: no
+  s3-prefix: prefix
+  secondary-artifacts:
+    artifactIdentifier1:
+      files:
+        - location
+        - location
+      name: secondary-artifact-name
+      discard-paths: no
+      base-directory: location
+    artifactIdentifier2:
+      files:
+        - location
+        - location
+      discard-paths: no
+      base-directory: location
+cache:
+  paths:
+    - path
+    - path
