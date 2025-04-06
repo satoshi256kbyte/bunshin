@@ -40,35 +40,59 @@ describe('intermediate-to-github-actions converter', () => {
 
       // ランタイムバージョンの設定を確認
       expect(steps[2]).toEqual({
-        name: 'Setup runtime1 version',
-        uses: 'actions/setup-runtime1@v2',
+        name: 'Setup golang version',
+        uses: 'actions/setup-go@v4',
         with: {
-          'runtime1-version': 'version',
+          'golang-version': 'latest',
         },
       });
 
       expect(steps[3]).toEqual({
-        name: 'Setup runtime2 version',
-        uses: 'actions/setup-runtime2@v2',
+        name: 'Setup java version',
+        uses: 'actions/setup-java@v4',
         with: {
-          'runtime2-version': 'version',
+          'java-version': 'latest',
+        },
+      });
+
+      expect(steps[4]).toEqual({
+        name: 'Setup nodejs version',
+        uses: 'actions/setup-node@v4',
+        with: {
+          'node-version': 'latest',
+        },
+      });
+
+      expect(steps[5]).toEqual({
+        name: 'Setup python version',
+        uses: 'actions/setup-python@v5',
+        with: {
+          'python-version': 'latest',
+        },
+      });
+
+      expect(steps[6]).toEqual({
+        name: 'Setup ruby version',
+        uses: 'actions/setup-ruby@v2',
+        with: {
+          'ruby-version': 'latest',
         },
       });
 
       // インストールコマンドを確認
-      expect(steps[4]).toEqual({
+      expect(steps[7]).toEqual({
         name: 'Install dependencies',
         run: 'command\ncommand',
       });
 
       // ビルドコマンドを確認
-      expect(steps[5]).toEqual({
+      expect(steps[8]).toEqual({
         name: 'Build',
         run: 'command\ncommand',
       });
 
       // ポストビルドコマンドを確認
-      expect(steps[6]).toEqual({
+      expect(steps[9]).toEqual({
         name: 'Post Build',
         run: 'command\ncommand',
       });

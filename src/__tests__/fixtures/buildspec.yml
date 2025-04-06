@@ -33,8 +33,11 @@ phases:
     run-as: Linux-user-name
     on-failure: ABORT
     runtime-versions:
-      runtime1: version
-      runtime2: version
+      golang: latest
+      java: latest
+      nodejs: latest
+      python: latest
+      ruby: latest
     commands:
       - command
       - command

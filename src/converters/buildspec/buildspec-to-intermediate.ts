@@ -22,7 +22,7 @@ interface BuildspecYamlData {
   phases?: {
     [key: string]: {
       'run-as'?: string;
-      'runtime-versions'?: Record<string, string | number>;
+      'runtime-versions'?: Record<string, string>;
       commands?: string[];
       finally?: string[];
       'on-failure'?: string;

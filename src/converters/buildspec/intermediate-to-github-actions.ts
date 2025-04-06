@@ -75,13 +75,32 @@ export function convertIntermediateToGithubActions(
     // ランタイムバージョンの設定
     if (installPhase.runtimeVersions) {
       for (const [runtime, version] of Object.entries(installPhase.runtimeVersions)) {
-        workflow.jobs.build.steps.push({
-          name: `Setup ${runtime} version`,
-          uses: `actions/setup-${runtime}@v2`,
-          with: {
-            [`${runtime.toLowerCase()}-version`]: version,
-          },
-        });
+        // サポートされているランタイムのみ変換
+        const supportedRuntimes: Record<string, string> = {
+          golang: 'actions/setup-go@v4',
+          java: 'actions/setup-java@v4',
+          nodejs: 'actions/setup-node@v4',
+          python: 'actions/setup-python@v5',
+          ruby: 'actions/setup-ruby@v2',
+        };
+
+        if (supportedRuntimes[runtime]) {
+          const versionParamNames: Record<string, string> = {
+            golang: 'golang-version',
+            java: 'java-version',
+            nodejs: 'node-version',
+            python: 'python-version',
+            ruby: 'ruby-version',
+          };
+
+          workflow.jobs.build.steps.push({
+            name: `Setup ${runtime} version`,
+            uses: supportedRuntimes[runtime],
+            with: {
+              [versionParamNames[runtime]]: version,
+            },
+          });
+        }
       }
     }
 
