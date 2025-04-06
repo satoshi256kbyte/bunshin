@@ -40,9 +40,12 @@ describe('buildspec-to-intermediate converter', () => {
       expect(result.phases?.install?.runAs).toBe('Linux-user-name');
       expect(result.phases?.install?.onFailure).toBe('ABORT');
       expect(result.phases?.install?.runtimeVersions).toEqual({
+        android: 'latest',
+        dotnet: 'latest',
         golang: 'latest',
         java: 'latest',
         nodejs: 'latest',
+        php: 'latest',
         python: 'latest',
         ruby: 'latest',
       });

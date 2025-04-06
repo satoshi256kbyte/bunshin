@@ -38,6 +38,9 @@ phases:
       nodejs: latest
       python: latest
       ruby: latest
+      dotnet: latest
+      android: latest
+      php: latest
     commands:
       - command
       - command

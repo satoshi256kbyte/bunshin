@@ -82,6 +82,7 @@ export function convertIntermediateToGithubActions(
           nodejs: 'actions/setup-node@v4',
           python: 'actions/setup-python@v5',
           ruby: 'actions/setup-ruby@v2',
+          dotnet: 'actions/setup-dotnet@v4',
         };
 
         if (supportedRuntimes[runtime]) {
@@ -91,6 +92,7 @@ export function convertIntermediateToGithubActions(
             nodejs: 'node-version',
             python: 'python-version',
             ruby: 'ruby-version',
+            dotnet: 'dotnet-version',
           };
 
           workflow.jobs.build.steps.push({
@@ -99,6 +101,11 @@ export function convertIntermediateToGithubActions(
             with: {
               [versionParamNames[runtime]]: version,
             },
+          });
+        } else {
+          workflow.jobs.build.steps.push({
+            name: `Setup ${runtime} version`,
+            run: `# ${runtime} runtime is not currently supported in GitHub Actions conversion`,
           });
         }
       }

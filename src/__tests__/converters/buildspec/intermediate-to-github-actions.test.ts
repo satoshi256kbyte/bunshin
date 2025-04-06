@@ -79,20 +79,38 @@ describe('intermediate-to-github-actions converter', () => {
         },
       });
 
-      // インストールコマンドを確認
       expect(steps[7]).toEqual({
+        name: 'Setup dotnet version',
+        uses: 'actions/setup-dotnet@v4',
+        with: {
+          'dotnet-version': 'latest',
+        },
+      });
+
+      expect(steps[8]).toEqual({
+        name: 'Setup android version',
+        run: '# android runtime is not currently supported in GitHub Actions conversion',
+      });
+
+      expect(steps[9]).toEqual({
+        name: 'Setup php version',
+        run: '# php runtime is not currently supported in GitHub Actions conversion',
+      });
+
+      // インストールコマンドを確認
+      expect(steps[10]).toEqual({
         name: 'Install dependencies',
         run: 'command\ncommand',
       });
 
       // ビルドコマンドを確認
-      expect(steps[8]).toEqual({
+      expect(steps[11]).toEqual({
         name: 'Build',
         run: 'command\ncommand',
       });
 
       // ポストビルドコマンドを確認
-      expect(steps[9]).toEqual({
+      expect(steps[12]).toEqual({
         name: 'Post Build',
         run: 'command\ncommand',
       });
